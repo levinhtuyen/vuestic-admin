@@ -102,3 +102,13 @@ const router = createRouter({
 })
 
 export default router
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('access_token')
+  if (token && to.name === 'login') {
+    next({ name: 'DefaultLayout' })
+  } else if (!token && to.name !== 'login' && to.name !== 'signup') {
+    next({ name: 'login' })
+  } else {
+    next()
+  }
+})

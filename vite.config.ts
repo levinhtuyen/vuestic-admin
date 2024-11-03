@@ -10,6 +10,12 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
+  resolve: {
+    alias: {
+      '~': resolve(__dirname, 'src'),
+      '@': resolve(__dirname, 'src'),
+    },
+  },
   plugins: [
     vuestic({
       devtools: true,

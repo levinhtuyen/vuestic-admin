@@ -10,7 +10,7 @@
         </VaButton>
       </template>
       <VaDropdownContent
-        class="profile-dropdown__content md:w-60 px-0 py-4 w-full"
+        class="w-full px-0 py-4 profile-dropdown__content md:w-60"
         :style="{ '--hover-color': hoverColor }"
       >
         <VaList v-for="group in options" :key="group.name">
@@ -20,8 +20,9 @@
           <VaListItem
             v-for="item in group.list"
             :key="item.name"
-            class="menu-item px-4 text-base cursor-pointer h-8"
+            class="h-8 px-4 text-base cursor-pointer menu-item"
             v-bind="resolveLinkAttribute(item)"
+            @click="changeItem(item)"
           >
             <VaIcon :name="item.icon" class="pr-1" color="secondary" />
             {{ t(`user.${item.name}`) }}
@@ -37,7 +38,9 @@
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useColors } from 'vuestic-ui'
+import { useAuth } from '@/composables/useAuth'
 
+const { signOut } = useAuth()
 const { colors, setHSLAColor } = useColors()
 const hoverColor = computed(() => setHSLAColor(colors.focus, { a: 0.1 }))
 
@@ -71,37 +74,6 @@ withDefaults(
             to: 'preferences',
             icon: 'mso-account_circle',
           },
-          {
-            name: 'settings',
-            to: 'settings',
-            icon: 'mso-settings',
-          },
-          {
-            name: 'billing',
-            to: 'billing',
-            icon: 'mso-receipt_long',
-          },
-          {
-            name: 'projects',
-            to: 'projects',
-            icon: 'mso-favorite',
-          },
-        ],
-      },
-      {
-        name: 'explore',
-        separator: true,
-        list: [
-          {
-            name: 'faq',
-            to: 'faq',
-            icon: 'mso-quiz',
-          },
-          {
-            name: 'helpAndSupport',
-            href: 'https://discord.gg/u7fQdqQt8c',
-            icon: 'mso-error',
-          },
         ],
       },
       {
@@ -123,6 +95,12 @@ const isShown = ref(false)
 
 const resolveLinkAttribute = (item: ProfileListItem) => {
   return item.to ? { to: { name: item.to } } : item.href ? { href: item.href, target: '_blank' } : {}
+}
+const changeItem = (item: any) => {
+  console.log('item :>> ', item)
+  if (item.name === 'logout') {
+    signOut()
+  }
 }
 </script>
 
