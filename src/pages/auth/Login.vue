@@ -49,12 +49,12 @@ import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useForm, useToast } from 'vuestic-ui'
 import { validators } from '../../services/utils'
-import { useAuth } from '@/composables/useAuth'
+//import { useAuth } from '@/composables/useAuth'
 
 const { validate } = useForm('form')
 const { push } = useRouter()
 const { init } = useToast()
-const auth = useAuth()
+// const auth = useAuth()
 
 const formData = reactive({
   email: '1@gmail.com.vn',
@@ -66,11 +66,11 @@ const submit = () => {
   if (validate()) {
     init({ message: "You've successfully logged in", color: 'success' })
 
-    auth.signIn({
-      accessToken: 'Token123',
-      expiresAt: 3200000,
-      profile: {},
-    })
+    //auth.signIn({
+    //  accessToken: 'Token123',
+    //  expiresAt: 3200000,
+    //  profile: {},
+    //})
     push({ name: 'dashboard' })
   }
 }

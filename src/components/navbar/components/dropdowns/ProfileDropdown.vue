@@ -38,9 +38,9 @@
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useColors } from 'vuestic-ui'
-import { useAuth } from '@/composables/useAuth'
+// import { useAuth } from '@/composables/useAuth'
 
-const { signOut } = useAuth()
+// const { signOut } = useAuth()
 const { colors, setHSLAColor } = useColors()
 const hoverColor = computed(() => setHSLAColor(colors.focus, { a: 0.1 }))
 
@@ -99,7 +99,7 @@ const resolveLinkAttribute = (item: ProfileListItem) => {
 const changeItem = (item: any) => {
   console.log('item :>> ', item)
   if (item.name === 'logout') {
-    signOut()
+    // signOut()
   }
 }
 </script>
